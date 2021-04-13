@@ -18,8 +18,8 @@ frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))
 
 #if you want to write video
-#out = cv2.VideoWriter('match.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 10, (1920,1080))
-#out2 = cv2.VideoWriter('plane.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 10, (900,600))
+#out = cv2.VideoWriter('match.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 25, (1920,1080))
+#out2 = cv2.VideoWriter('plane.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 25, (900,600))
 
 if (cap.isOpened()== False): 
     print("Error opening video stream or file")
@@ -163,7 +163,7 @@ while(cap.isOpened()):
         cv2.imshow('img',copy)
         cv2.imshow('plane',p)
 
-    if cv2.waitKey(0)==27:
+    if cv2.waitKey(1)==27:
         
         break
     
