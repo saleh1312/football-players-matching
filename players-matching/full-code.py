@@ -18,8 +18,8 @@ frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))
 
 #if you want to write video
-#out = cv2.VideoWriter('match.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 25, (1920,1080))
-#out2 = cv2.VideoWriter('plane.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 25, (900,600))
+out = cv2.VideoWriter('match.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 20, (1920,1080))
+out2 = cv2.VideoWriter('plane.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 20, (900,600))
 
 if (cap.isOpened()== False): 
     print("Error opening video stream or file")
@@ -105,17 +105,19 @@ def get_players(outs,height, width):
 
 
 
-i=0
+opr=0
 while(cap.isOpened()):
     ret, frame = cap.read()
     
     players=[]
     ball=[]
-    if i<310:
-        i=i+1
+    if opr<310:
+        opr=opr+1
         continue
+    opr=opr+1
     
     if ret == True :
+        print(opr)
         copy=frame.copy()
         gray= cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         
@@ -161,8 +163,9 @@ while(cap.isOpened()):
             
         p=plane(players, ball)
             
-        #out.write(frame)
-        #out2.write(p)
+        out.write(copy)
+        out2.write(p)
+        
         cv2.imshow('img',copy)
         cv2.imshow('plane',p)
         
@@ -176,24 +179,7 @@ while(cap.isOpened()):
 
 # When everything done, release the video capture object
 cap.release()
-#out.release()
-#out2.release()
+out.release()
+out2.release()
 # Closes all the frames
 cv2.destroyAllWindows()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
