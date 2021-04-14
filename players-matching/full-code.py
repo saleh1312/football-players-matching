@@ -107,11 +107,7 @@ def get_players(outs,height, width):
 
 i=0
 while(cap.isOpened()):
-    
-  
     ret, frame = cap.read()
-    copy=frame.copy()
-    gray= cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     
     players=[]
     ball=[]
@@ -120,6 +116,8 @@ while(cap.isOpened()):
         continue
     
     if ret == True :
+        copy=frame.copy()
+        gray= cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         
         height, width, channels = frame.shape
         
@@ -131,7 +129,12 @@ while(cap.isOpened()):
         for i in range(len(outs)):
             x, y, w, h = outs[i]
             roi = frame[y:y+h,x:x+w]
-            roi=cv2.resize(roi, (96,96))
+            
+            #some frames are bad so resize function throw an error
+            try:
+                roi=cv2.resize(roi, (96,96))
+            except:
+                continue
             ym=model.predict(np.reshape(roi,(1,96,96,3)))
             ym=argmax(ym)
             
@@ -162,7 +165,10 @@ while(cap.isOpened()):
         #out2.write(p)
         cv2.imshow('img',copy)
         cv2.imshow('plane',p)
-
+        
+    # this will run the video without stop and maybe the cv2 window will stop between every frame
+    # depending on your pc power ( i recommend to use (opencv with gpu) and colab to run script quickly ) 
+    # if you want script stop between every frame and manually you allow the script to continue change it t ocv2.waitKey(0)
     if cv2.waitKey(1)==27:
         
         break
