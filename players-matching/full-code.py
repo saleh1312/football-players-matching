@@ -104,7 +104,7 @@ def get_players(outs,height, width):
     return players
 
 
-
+#to skip some frames ( that ball dont apper in them )
 opr=0
 while(cap.isOpened()):
     ret, frame = cap.read()
@@ -114,10 +114,10 @@ while(cap.isOpened()):
     if opr<310:
         opr=opr+1
         continue
-    opr=opr+1
+    
     
     if ret == True :
-        print(opr)
+        
         copy=frame.copy()
         gray= cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         
